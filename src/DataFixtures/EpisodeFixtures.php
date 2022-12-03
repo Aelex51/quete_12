@@ -16,36 +16,24 @@ class EpisodeFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
+         $faker = Factory::create();
 
-        for ($i = 0; $i < 500; $i++) {
-            $episode = new Episode();
-            $episode->setTitle($faker->sentence(4));
-            $episode->setNumber($faker->numberBetween(0,15));
-            $episode->setSynopsis($faker->paragraph());
-            $episode->setSeason($this->getReference('season_' . $faker->numberBetween(1,50)));
-            $manager->persist($episode);
+        for($index = 0; $index < SeasonFixtures::$numSeason; $index++) {
+
+            for($i = 0; $i < self::NBOFEPISODES; $i++) {
+                $episode = new Episode();
+            
+                $episode->setNumber($i+1);
+                $episode->setTitle($faker->word());
+                $episode->setSynopsis($faker->paragraphs(3, true));
+
+                $episode->setSeason($this->getReference('season_' . $index));
+
+                $manager->persist($episode);
+            }
         }
         $manager->flush();
     }
-        // $faker = Factory::create();
-
-        // for($index = 0; $index < SeasonFixtures::$numSeason; $index++) {
-
-        //     for($i = 0; $i < self::NBOFEPISODES; $i++) {
-        //         $episode = new Episode();
-            
-        //         $episode->setNumber($i+1);
-        //         $episode->setTitle($faker->word());
-        //         $episode->setSynopsis($faker->paragraphs(3, true));
-
-        //         $episode->setSeason($this->getReference('season_' . $index));
-
-        //         $manager->persist($episode);
-        //     }
-        // }
-        // $manager->flush();
-
 
     public function getDependencies()
     {
