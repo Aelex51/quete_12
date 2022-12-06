@@ -23,22 +23,22 @@ class SeasonFixtures extends Fixture implements DependentFixtureInterface
          * L'objet $faker que tu récupère est l'outil qui va te permettre 
          * de te générer toutes les données que tu souhaites
          */
-           // for($index = 0; $index < count(ProgramFixtures::PROGRAMLIST); $index++) {
+           for($index = 0; $index < count(ProgramFixtures::PROGRAMLIST); $index++) {
 
-        //     for($i = 0; $i < self::NBOFSEASONS; $i++) {
-        //         $season = new Season();
+            for($i = 0; $i < self::NBOFSEASONS; $i++) {
+                $season = new Season();
             
-        //         $season->setNumber($i+1);
-        //         $season->setYear($faker->year());
-        //         $season->setDescription($faker->paragraphs(3, true));
+                $season->setNumber($i+1);
+                $season->setYear($faker->year());
+                $season->setDescription($faker->paragraphs(3, true));
 
-        //         $season->setProgram($this->getReference('program_' . $index));
-        //         $this->addReference('season_' . self::$numSeason, $season);
-        //         $manager->persist($season);
-        //         self::$numSeason++;
-        //     }
-        // }
-        // $manager->flush();
+                $season->setProgram($this->getReference('program_' . $index));
+                $manager->persist($season);
+                $this->addReference('season_' . self::$numSeason, $season);
+                self::$numSeason++;
+            }
+        }
+        $manager->flush();
 
         }
     }
